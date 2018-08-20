@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from '../../Components/ErrorProofImage/ErrorProofImage';
-import { Button, Grid, GridColumn } from 'semantic-ui-react';
+import { Button, Grid } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import SEO from '../../Components/SEO/SEO';
 const ErrorPage = props => {
@@ -26,6 +26,8 @@ const ErrorPage = props => {
         columns={2}
       >
         <Grid.Column>
+          <h1>Something went wrong.</h1>
+          <br />
           <p>
             <strong>Catfather</strong> trashed our place, because we didn't pay
             up. Don't worry! we'll get this sorted out.. kinda.. we hope so..
@@ -38,13 +40,13 @@ const ErrorPage = props => {
             </Button>
           </div>
         </Grid.Column>
-        <GridColumn>
+        <Grid.Column>
           <Image
             src={'/themafiagroup.png'}
             className={'catfather'}
             alt={'Catfather and his goons'}
           />
-        </GridColumn>
+        </Grid.Column>
       </Grid>
     </div>
   );

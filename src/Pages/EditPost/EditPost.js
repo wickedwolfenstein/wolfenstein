@@ -168,8 +168,7 @@ export class EditPost extends Component {
         const payload = {
           title: title,
           category: selectValue,
-          content:
-            '<h1><strong>' + title + '</strong></h1><hr><p>Edit Text Here</p>',
+          content: '<hr><p>Edit Text Here</p>',
           author: Store.user.name,
           authorProfileID: Store.user.id,
           heroImage: '',
@@ -217,10 +216,7 @@ export class EditPost extends Component {
                     cardDesc: cardDesc,
                     imageUrl: imageUrl,
                     open: false,
-                    content:
-                      '<h1><strong>' +
-                      title +
-                      '</strong></h1><hr><p>Edit Text Here</p>',
+                    content: '<hr><p>Edit Text Here</p>',
                     postId: postID,
                   });
                 })

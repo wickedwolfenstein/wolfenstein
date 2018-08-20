@@ -30,7 +30,6 @@ export class Postlist extends Component {
 
   componentDidMount() {
     const cardsCount = window.innerWidth > 992 ? 3 : 2;
-    instance.get('/').then(res => console.log(res));
     instance.get('/category').then(res => {
       if (res.data) {
         this.categories = res.data.map(item => {

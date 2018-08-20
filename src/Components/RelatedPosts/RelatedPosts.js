@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Segment, Card, Divider, Icon } from 'semantic-ui-react';
 import Image from '../../Components/ErrorProofImage/ErrorProofImage';
 import api from '../../config/Axios/axios';
@@ -16,7 +16,10 @@ export class RelatedPosts extends Component {
           if (res.status === 404) {
             console.log('Posts Not Found');
           } else {
-            this.setState({ posts: [...res.data] });
+            let posts = res.data.filter(
+              item => item._id !== this.props.currPostID
+            );
+            this.setState({ posts: posts });
           }
         })
         .catch(err => {
@@ -60,13 +63,19 @@ export class RelatedPosts extends Component {
       });
     }
     return (
-      <Segment raised>
-        <Divider horizontal>Related Posts</Divider>
-        <br />
-        <Card.Group itemsPerRow={3} stackable doubling>
-          {relatedPostsDOM}
-        </Card.Group>
-      </Segment>
+      <Fragment>
+        {this.state.posts && this.state.posts.length > 0 ? (
+          <Segment raised>
+            <Divider horizontal>Related Posts</Divider>
+            <br />
+            <Card.Group itemsPerRow={3} stackable doubling>
+              {relatedPostsDOM}
+            </Card.Group>
+          </Segment>
+        ) : (
+          undefined
+        )}
+      </Fragment>
     );
   }
 }

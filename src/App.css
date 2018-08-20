@@ -89,6 +89,13 @@ svg.placeholder {
   margin: auto !important;
 }
 
+.postEditedTime {
+  font-size: 1em;
+  clear: both;
+  color: rgba(0, 0, 0, 0.68);
+  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
 .mobileCenter {
   width: calc(100% - 2em) !important;
   margin-left: auto !important;
@@ -153,8 +160,15 @@ div.clickable .anchor-clickable {
   margin-bottom: 0.5rem;
 }
 .socialShareButtons {
-  margin-top: 3rem;
-  position: fixed;
+  margin-top: 6rem;
+  /* position: fixed; */
+  position: sticky;
+  top: 30%;
+  left: 0;
+  display: inline-block;
+}
+
+.socialShareAnimation {
   transform: translateX(-150px) !important;
   animation: come-out 0.8s ease forwards !important;
 }
