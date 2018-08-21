@@ -5,7 +5,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import './App.css';
 import EditPost from './Pages/EditPost/EditPost';
-import PostList from './Pages/Postlist/PostList';
+import PostList from './Pages/Postslist/PostsList';
 import ViewPost from './Pages/ViewPost/ViewPost';
 import Registration from './Pages/Registration/Registration';
 import Login from './Pages/Login/Login';

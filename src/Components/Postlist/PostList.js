@@ -189,14 +189,6 @@ export class Postlist extends Component {
 
     return (
       <Grid className={'gridpushup'}>
-        <SEO
-          title={'Wickedity | All Posts'}
-          metaTitle={'Wickedity | All Posts'}
-          metaKeywords={'blog technology science all categories posts'}
-          metaDescription={'Blog about all the things I find intresting!!'}
-          orgTitle={'Wickedity | All Posts'}
-          orgDescription={'Blog about all the things I find intresting!!'}
-        />
         <Grid.Row columns={3}>
           <Grid.Column tablet={2} computer={3} only="computer tablet" />
           <Grid.Column

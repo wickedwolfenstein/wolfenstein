@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import SEO from '../../Components/SEO/SEO';
 import Banner2 from '../../Components/Banner2/Banner2';
-import PostList from '../Postlist/PostList';
+import PostList from '../../Components/Postlist/PostList';
 
 export class HomePage extends Component {
   render() {
