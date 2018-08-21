@@ -24,6 +24,7 @@ const PageNotFound = props => {
         doubling
         stackable
         columns={2}
+        className={'takeFullHeight'}
       >
         <Grid.Column>
           <h1>Page has been burned.</h1>

@@ -13,9 +13,13 @@ class ThemeStore {
     BLUE: 'rgba(10, 222, 222, .8)',
     RED: 'rgba(255, 71, 26, .8)',
   };
+  // BG = {
+  //   BLUE: 'cat1.png',
+  //   RED: 'Wickedity.png',
+  // };
   BG = {
-    BLUE: 'cat1.png',
-    RED: 'Wickedity.png',
+    BLUE: '/0.png',
+    RED: '/0.png',
   };
 
   @observable headerColor = 'blue';

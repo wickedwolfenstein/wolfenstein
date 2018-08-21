@@ -24,6 +24,7 @@ const ErrorPage = props => {
         doubling
         stackable
         columns={2}
+        className={'takeFullHeight'}
       >
         <Grid.Column>
           <h1>Something went wrong.</h1>

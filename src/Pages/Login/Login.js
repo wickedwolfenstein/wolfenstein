@@ -69,7 +69,7 @@ class Login extends Component {
       return <Message.Item key={x}>{UserStore.errors[x]}</Message.Item>;
     });
     return (
-      <Grid doubling stackable>
+      <Grid doubling stackable className={'takeFullHeight'}>
         <Grid.Row centered columns={3}>
           <Grid.Column tablet={2} computer={3} only="computer tablet" />
           <Grid.Column
@@ -85,7 +85,7 @@ class Login extends Component {
               <Form onSubmit={this.handleSubmit} error={keys.length > 0}>
                 <Message error>
                   <Message.Header>Error Occured</Message.Header>
-                  <Message.List>{errMessages}</Message.List>
+                  <Message.List>{errMessages ? errMessages : ''}</Message.List>
                 </Message>
                 <Form.Field
                   error={

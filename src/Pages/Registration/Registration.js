@@ -61,7 +61,7 @@ class Registeration extends Component {
       return <Message.Item key={x}>{UserStore.errors[x]}</Message.Item>;
     });
     return (
-      <Grid>
+      <Grid className={'takeFullHeight'}>
         <Grid.Row centered columns={3}>
           <Grid.Column tablet={2} computer={3} only="computer" />
           <Grid.Column

@@ -17,7 +17,7 @@ import {
   EmailIcon,
 } from 'react-share';
 import Disqus from 'disqus-react';
-import { Grid, Divider, Loader, Dimmer, Card } from 'semantic-ui-react';
+import { Grid, Divider, Loader, Dimmer } from 'semantic-ui-react';
 import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 import 'font-awesome/css/font-awesome.css';
 import { withRouter } from 'react-router-dom';
@@ -154,6 +154,7 @@ export class ViewPost extends Component {
           doubling
           stackable
           columns={2}
+          className={'takeFullHeight'}
         >
           <Dimmer active={this.state.loadingPost}>
             <Loader
@@ -181,7 +182,9 @@ export class ViewPost extends Component {
           <Grid.Column>
             {this.state.post ? (
               <Image
-                src={this.state.post.card.cardImage}
+                src={
+                  this.state.post.heroImage || this.state.post.card.cardImage
+                }
                 className={'catfather'}
                 alt={this.state.post.title}
               />
