@@ -4,7 +4,6 @@ import ErrorProofImage from '../../Components/ErrorProofImage/ErrorProofImage';
 import { NavLink } from 'react-router-dom';
 import instance from '../../config/Axios/axios';
 import { randomColor } from '../../Components/Colors/Colors';
-import SEO from '../../Components/SEO/SEO';
 import OnVisible from 'react-on-visible';
 
 export class Postlist extends Component {
