@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import PostList from '../Postlist/PostList';
+import PostList from '../../Components/Postlist/PostList';
 import SEO from '../../Components/SEO/SEO';
 
-export class HomePage extends Component {
+export class PostsList extends Component {
   render() {
     return (
       <Fragment>
@@ -19,3 +19,5 @@ export class HomePage extends Component {
     );
   }
 }
+
+export default PostsList;

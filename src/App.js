@@ -5,7 +5,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import './App.css';
 import EditPost from './Pages/EditPost/EditPost';
-import PostList from './Pages/Postslist/PostsList';
+import PostsList from './Pages/PostsList/PostsList';
 import ViewPost from './Pages/ViewPost/ViewPost';
 import Registration from './Pages/Registration/Registration';
 import Login from './Pages/Login/Login';
@@ -83,8 +83,8 @@ class App extends Component {
             path="/posts/:category/:postId/:postTitle"
             component={ViewPost}
           />
-          <Route exact path="/posts/:category" component={PostList} />
-          <Route exact path="/posts" component={PostList} />
+          <Route exact path="/posts/:category" component={PostsList} />
+          <Route exact path="/posts" component={PostsList} />
           <PrivateRoute
             authed={!Store.isAuth}
             path="/register"
