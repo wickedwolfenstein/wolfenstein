@@ -13,20 +13,21 @@ class ThemeStore {
     BLUE: 'rgba(10, 222, 222, .8)',
     RED: 'rgba(255, 71, 26, .8)',
   };
-  // BG = {
-  //   BLUE: 'cat1.png',
-  //   RED: 'Wickedity.png',
-  // };
   BG = {
-    BLUE: '/0.png',
-    RED: '/0.png',
+    BLUE: 'cat1.png',
+    RED: 'Wickedity.png',
   };
+  // BG = {
+  //   BLUE: '/0.png',
+  //   RED: '/0.png',
+  // };
 
   @observable headerColor = 'blue';
   @observable themeToggle = true;
   @observable imageUrl = this.BG.BLUE;
   @observable star = 'rgba(5, 200, 200, .8)';
   @observable line = 'rgba(10, 222, 222, .8)';
+  @observable dropdownMenuOpen = false;
 
   constructor() {
     const localStorageThemeColor = localStorage.getItem('theme');
@@ -51,6 +52,11 @@ class ThemeStore {
     this.headerColor = this.themeToggle ? this.THEMES.BLUE : this.THEMES.RED;
     this.imageUrl = this.themeToggle ? this.BG.BLUE : this.BG.RED;
     localStorage.setItem('theme', this.headerColor);
+  };
+
+  @action
+  toggleDropdown = () => {
+    this.dropdownMenuOpen = !this.dropdownMenuOpen;
   };
 }
 

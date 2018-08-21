@@ -8,15 +8,9 @@ import { observer } from 'mobx-react';
 @withRouter
 @observer
 export class Header extends Component {
-  state = {
-    open: false,
-  };
-
   menuClickHandler = e => {
+    Store.toggleDropdown();
     e.preventDefault();
-    this.setState({
-      open: !this.state.open,
-    });
   };
   render() {
     return (
@@ -30,10 +24,25 @@ export class Header extends Component {
           <NavLink exact={true} to="/">
             <Menu.Item>
               <img src="/WolfLogo_1x.png" width={'32px'} alt={'logo'} />
+              {userStore.isAuth ? (
+                <Button
+                  basic
+                  circular
+                  icon="power off"
+                  className={'hideOnTabAbove'}
+                  style={{ marginLeft: 'auto', marginRight: '1rem' }}
+                  onClick={() => userStore.logoutUser(this.props.history)}
+                />
+              ) : (
+                undefined
+              )}
               <div
                 id="nav-icon3"
                 onClick={this.menuClickHandler}
-                className={this.state.open ? 'open' : ''}
+                className={
+                  (!userStore.isAuth ? 'navMarginLeft ' : '') +
+                  (Store.dropdownMenuOpen ? 'open' : '')
+                }
               >
                 <span />
                 <span />
@@ -43,8 +52,9 @@ export class Header extends Component {
             </Menu.Item>
           </NavLink>
           <div
-            className={!this.state.open ? 'hideHeaderDrop' : 'slideInDown'}
-            style={{ display: 'contents' }}
+            className={
+              !Store.dropdownMenuOpen ? 'hideHeaderDrop' : 'slideInDown'
+            }
           >
             <NavLink
               exact={true}
@@ -102,22 +112,21 @@ export class Header extends Component {
           >
             Login
           </NavLink> */}
-
-            <Menu.Menu position="right" className="LDSHeader">
-              {userStore.isAuth ? (
-                <Menu.Item
-                  onClick={() => userStore.logoutUser(this.props.history)}
-                >
-                  <Button basic circular icon="power off" />
-                </Menu.Item>
-              ) : (
-                undefined
-              )}
-              <Menu.Item className="hideOnMob">
-                <LightDarkSwitch />
-              </Menu.Item>
-            </Menu.Menu>
           </div>
+          <Menu.Menu position="right" className="LDSHeader hideOnMob">
+            {userStore.isAuth ? (
+              <Menu.Item
+                onClick={() => userStore.logoutUser(this.props.history)}
+              >
+                <Button basic circular icon="power off" />
+              </Menu.Item>
+            ) : (
+              undefined
+            )}
+            <Menu.Item className="hideOnMob">
+              <LightDarkSwitch />
+            </Menu.Item>
+          </Menu.Menu>
         </Menu>
       </Segment>
     );

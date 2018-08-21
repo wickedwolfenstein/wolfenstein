@@ -162,7 +162,7 @@ div.clickable .anchor-clickable {
 }
 @media (min-width: 767px) {
   .hideOnTabAbove {
-    display: none;
+    display: none !important;
   }
 }
 
@@ -383,9 +383,20 @@ a[href="https://froala.com/wysiwyg-editor"], a[href="https://www.froala.com/wysi
   display: none;
 }
 
+.hideHeaderDrop {
+  display: flex;
+}
+
 @media (max-width: 767px) {
   .hideHeaderDrop {
     display: none !important;
+  }
+  .hideOnTabAbove {
+    display: block;
+  }
+
+  .navMarginLeft {
+    margin-left: auto;
   }
   #nav-icon1,
   #nav-icon2,
@@ -394,7 +405,6 @@ a[href="https://froala.com/wysiwyg-editor"], a[href="https://www.froala.com/wysi
     width: 32px;
     height: 28px;
     position: relative;
-    margin-left: auto;
     -webkit-transform: rotate(0deg);
     -moz-transform: rotate(0deg);
     -o-transform: rotate(0deg);
@@ -473,7 +483,7 @@ a[href="https://froala.com/wysiwyg-editor"], a[href="https://www.froala.com/wysi
 
 @keyframes slideInDown {
   0% {
-    transform: translate3d(0, -30%, 0);
+    transform: translate3d(0, -10%, 0);
     visibility: visible;
   }
 
