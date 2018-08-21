@@ -31,11 +31,11 @@ export class EditPost extends Component {
   state = {
     content: '',
     open: false,
-    title: '',
+    title: 'Post title',
     category: '',
-    headerText: 'Card Header',
     cardDesc: '',
-    imageUrl: '',
+    cardImageUrl: '',
+    heroImageUrl: '',
     error: false,
     warning: false,
     success: false,
@@ -44,7 +44,7 @@ export class EditPost extends Component {
     savingPost: false,
     postId: '',
     categories: [],
-    copyPostTitleToHeader: false,
+    copyCardImageToHero: false,
     dropDownErr: false,
     modalImgErr: false,
     savePostErr: false,
@@ -78,7 +78,8 @@ export class EditPost extends Component {
                   category: res.data.category,
                   headerText: res.data.card.headerText,
                   cardDesc: res.data.card.description,
-                  imageUrl: res.data.card.cardImage,
+                  cardImageUrl: res.data.card.cardImage,
+                  heroImageUrl: res.data.heroImage,
                   open: false,
                   content: res.data.content,
                   postId: res.data._id,
@@ -153,17 +154,19 @@ export class EditPost extends Component {
     if (data) {
       const title = data.get('title');
       const selectValue = this.state.category;
-      const headerText = data.get('headerText');
       const cardDesc = data.get('cardDesc');
-      const imageUrl = data.get('imageUrl');
+      const cardImageUrl = data.get('cardImageUrl');
+      const heroImageUrl = data.get('heroImageUrl');
+      const keywords = data.get('keywords');
       if (
         title &&
         title !== '' &&
         (selectValue && selectValue !== '') &&
-        ((headerText && headerText !== '') ||
-          this.state.copyPostTitleToHeader) &&
+        ((heroImageUrl && heroImageUrl !== '') ||
+          this.state.copyCardImageToHero) &&
         (cardDesc && cardDesc !== '') &&
-        (imageUrl && imageUrl !== '')
+        (cardImageUrl && cardImageUrl !== '') &&
+        (keywords && keywords !== '')
       ) {
         const payload = {
           title: title,
@@ -171,13 +174,14 @@ export class EditPost extends Component {
           content: '<hr><p>Edit Text Here</p>',
           author: Store.user.name,
           authorProfileID: Store.user.id,
-          heroImage: '',
+          heroImage:
+            heroImageUrl && !this.state.copyCardImageToHero
+              ? heroImageUrl
+              : cardImageUrl,
+          keywords: keywords,
           card: {
-            headerText:
-              headerText && !this.state.copyPostTitleToHeader
-                ? headerText
-                : title,
-            cardImage: imageUrl,
+            headerText: title,
+            cardImage: cardImageUrl,
             subheaderText: Store.user.name,
             subheaderClass: 'date',
             description: cardDesc,
@@ -212,9 +216,8 @@ export class EditPost extends Component {
                     savingPost: false,
                     title: title,
                     category: selectValue,
-                    headerText: headerText,
                     cardDesc: cardDesc,
-                    imageUrl: imageUrl,
+                    cardImageUrl: cardImageUrl,
                     open: false,
                     content: '<hr><p>Edit Text Here</p>',
                     postId: postID,
@@ -257,7 +260,7 @@ export class EditPost extends Component {
   };
 
   inputHandler = (e, field) => {
-    if (field !== 'imageUrl') {
+    if (field !== 'cardImageUrl') {
       this.setState({
         [field]: e.target.value,
       });
@@ -279,7 +282,7 @@ export class EditPost extends Component {
 
   checkboxHandler = () => {
     this.setState({
-      copyPostTitleToHeader: !this.state.copyPostTitleToHeader,
+      copyCardImageToHero: !this.state.copyCardImageToHero,
     });
   };
 
@@ -371,7 +374,7 @@ export class EditPost extends Component {
                   }}
                 />
                 <Form.Field>
-                  <label>First Name</label>
+                  <label>Category</label>
                   <Dropdown
                     options={this.state.categories}
                     placeholder="Category"
@@ -396,39 +399,13 @@ export class EditPost extends Component {
                   required
                 /> */}
               </Form.Group>
-              <Header size="small">Card Details</Header>
               <Grid columns={2} divided>
                 <Grid.Row stretched>
                   <Grid.Column>
                     <Form.Input
                       fluid
-                      name="headerText"
-                      label="Card Header"
-                      placeholder="Header Text"
-                      required
-                      disabled={this.state.copyPostTitleToHeader}
-                      onChange={event => {
-                        this.inputHandler(event, 'headerText');
-                      }}
-                      value={
-                        this.state.copyPostTitleToHeader
-                          ? this.state.title
-                          : this.state.headerText === 'Card Header'
-                            ? ''
-                            : this.state.headerText
-                      }
-                    />
-                    <Form.Field
-                      control={Checkbox}
-                      label={<label>Same as Post Title</label>}
-                      onChange={e => {
-                        this.checkboxHandler(e);
-                      }}
-                    />
-                    <Form.Input
-                      fluid
                       name="cardDesc"
-                      label="Card Description"
+                      label="Description"
                       placeholder="Description Text"
                       required
                       onChange={event => {
@@ -437,12 +414,45 @@ export class EditPost extends Component {
                     />
                     <Form.Input
                       fluid
-                      name="imageUrl"
+                      name="cardImageUrl"
                       label="Card Image Url"
                       placeholder="URL"
                       required
                       onChange={event => {
-                        this.inputHandler(event, 'imageUrl');
+                        this.inputHandler(event, 'cardImageUrl');
+                      }}
+                    />
+                    <Form.Input
+                      fluid
+                      name="heroImageUrl"
+                      label="Hero Image Url"
+                      placeholder="Hero Image Url"
+                      required
+                      disabled={this.state.copyCardImageToHero}
+                      onChange={event => {
+                        this.inputHandler(event, 'heroImageUrl');
+                      }}
+                      value={
+                        this.state.copyCardImageToHero
+                          ? this.state.cardImageUrl
+                          : this.state.heroImageUrl
+                      }
+                    />
+                    <Form.Field
+                      control={Checkbox}
+                      label={<label>Same as Card Image</label>}
+                      onChange={e => {
+                        this.checkboxHandler(e);
+                      }}
+                    />
+                    <Form.Input
+                      fluid
+                      name="keywords"
+                      label={'Keywords (separated by comma " , ")'}
+                      placeholder="Keywords"
+                      required
+                      onChange={event => {
+                        this.inputHandler(event, 'keywords');
                       }}
                     />
                   </Grid.Column>
@@ -452,16 +462,12 @@ export class EditPost extends Component {
                         onError={this.imgError}
                         src={
                           !this.state.modalImgErr
-                            ? this.state.imageUrl
+                            ? this.state.cardImageUrl
                             : 'image-placeholder_3x2.svg'
                         }
                       />
                       <Card.Content>
-                        <Card.Header>
-                          {this.state.copyPostTitleToHeader
-                            ? this.state.title
-                            : this.state.headerText}
-                        </Card.Header>
+                        <Card.Header>{this.state.title}</Card.Header>
                         <Card.Meta>
                           <span className="date">
                             {cate && this.state.category !== ''

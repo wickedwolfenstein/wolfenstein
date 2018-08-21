@@ -1,5 +1,13 @@
 import React, { Component, Fragment } from 'react';
-import { Card, Button, Header, Divider, Message } from 'semantic-ui-react';
+import {
+  Card,
+  Button,
+  Header,
+  Divider,
+  Message,
+  Modal,
+  Icon,
+} from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import Store from '../../Store/userStore';
 import axios from '../../config/Axios/axios';
@@ -125,6 +133,20 @@ export class UserPosts extends Component {
     });
     return (
       <Fragment>
+        <Modal open={this.state.confirmDeleteModalOpen} basic size="small">
+          <Header icon="question" content="Delete Post" />
+          <Modal.Content>
+            <p>Do you really want to delete this post ?</p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button basic color="red" inverted onClick={this.rejectDelete}>
+              <Icon name="remove" /> No
+            </Button>
+            <Button color="green" inverted onClick={this.confirmDelete}>
+              <Icon name="checkmark" /> Yes
+            </Button>
+          </Modal.Actions>
+        </Modal>
         <Header
           as="h1"
           className={'post-list'}
@@ -137,6 +159,7 @@ export class UserPosts extends Component {
             <Message
               positive={this.state.postDeleteSuccess}
               negative={this.state.postDeleteError}
+              className={'userProfileMessage slideInDown'}
             >
               <Message.Header>
                 {this.state.postDeleteSuccess

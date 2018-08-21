@@ -8,6 +8,7 @@ class UserStore {
   @observable isAuth = false;
   @observable errors = {};
   @observable user = {};
+  @observable successfullyReset = false;
 
   @action
   registerUser = (user, history) => {
@@ -58,6 +59,22 @@ class UserStore {
     setAuthToken(false);
     this.setCurrentUser({});
     history.push('/login');
+  };
+
+  @action
+  changePassword = data => {
+    axios
+      .post('/resetpassword', data)
+      .then(() => {
+        this.errors = {};
+        this.successfullyReset = true;
+        setTimeout(() => {
+          this.successfullyReset = false;
+        }, 6000);
+      })
+      .catch(err => {
+        this.errors = { ...err.response.data };
+      });
   };
 
   refreshToken = (interval = 600 * 1000) => {
