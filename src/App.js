@@ -103,6 +103,7 @@ class App extends Component {
           <Route exact path="/contactus" component={ViewPost} />
           <Route exact path="/500" component={ErrorPage} />
           <Route exact path="/404" component={PageNotFound} />
+          <Route exact path="/google177ceb4e4924b877.html" />
           <Route exact path="*" component={PageNotFound} />
         </Switch>
         <Footer />
