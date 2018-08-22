@@ -10,7 +10,7 @@ export class LightDarkSwitch extends Component {
   checkboChangedhandler = () => {};
   render() {
     return (
-      <div className="wrapperLDS">
+      <div className="wrapperLDS" onClick={this.clickHandler}>
         <input
           id="dn"
           type="checkbox"
